@@ -1,10 +1,13 @@
 {
-  "build": {
-    "builder": "dockerfile"
-  },
-  "deploy": {
-    "numReplicas": 1,
-    "startCommand": "php -d variables_order=EGPCS artisan serve --host=0.0.0.0 --port=$PORT",
-    "restartPolicyMaxRetries": 5
-  }
+    "build": {
+        "builder": "nixpacks"
+    },
+    "deploy": {
+        "numReplicas": 1,
+        "startCommand": "php -d variables_order=EGPCS artisan serve --host=0.0.0.0 --port=$PORT",
+        "healthcheckPath": "/",
+        "environmentVariables": {
+            "RAILPACK_PHP_VERSION": "8.4"
+        }
+    }
 }
