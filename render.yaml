@@ -1,0 +1,61 @@
+services:
+  - type: web
+    name: lifedrop
+    env: php
+    plan: free
+    region: frankfurt
+
+    buildCommand: >
+      composer install --no-dev --optimize-autoloader &&
+      touch database/database.sqlite &&
+      chmod -R 775 storage bootstrap/cache database
+
+    startCommand: >
+      php artisan migrate:fresh --seed --force &&
+      php artisan route:cache &&
+      php artisan view:cache &&
+      php -d variables_order=EGPCS -S 0.0.0.0:$PORT server.php
+
+    envVars:
+      - key: APP_NAME
+        value: LifeDrop
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_KEY
+        generateValue: true
+      - key: APP_URL
+        value: https://lifedrop.onrender.com
+
+      # SQLite — لا تحتاج قاعدة بيانات خارجية
+      - key: DB_CONNECTION
+        value: sqlite
+
+      # Session/Cache/Queue — ملفات محلية بدون Redis أو DB
+      - key: SESSION_DRIVER
+        value: file
+      - key: SESSION_LIFETIME
+        value: "120"
+      - key: CACHE_STORE
+        value: file
+      - key: QUEUE_CONNECTION
+        value: sync
+
+      # Logging — إلى stderr (مرئي في لوج Render)
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: LOG_LEVEL
+        value: error
+
+      # Mail — log بدل SMTP حتى لا ينكسر
+      - key: MAIL_MAILER
+        value: log
+      - key: MAIL_FROM_ADDRESS
+        value: no-reply@lifedrop.com
+      - key: MAIL_FROM_NAME
+        value: LifeDrop
+
+      # Security
+      - key: BCRYPT_ROUNDS
+        value: "10"
