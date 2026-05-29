@@ -1,0 +1,161 @@
+/* =====================================================
+   صفحة تواصل معنا (Contact Us & FAQ)
+   ===================================================== */
+
+.container-LC {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 7%;
+}
+
+.section-title-LC {
+    text-align: center;
+    margin-bottom: 50px;
+    color: var(--text-dark);
+    font-size: 2.5rem;
+    font-weight: 800;
+}
+
+.contact-flex-LC {
+    display: flex;
+    gap: 50px;
+    align-items: flex-start;
+}
+
+/* --- تنسيق النموذج (Form) --- */
+.contact-form-wrapper-LC {
+    flex: 1;
+}
+
+.card-LC {
+    background: var(--white);
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: var(--shadow-modern);
+    border: 1px solid rgba(0,0,0,0.03);
+}
+
+.card-LC h3 {
+    margin-bottom: 25px;
+    color: var(--primary-red);
+}
+
+.form-group-LC {
+    margin-bottom: 20px;
+}
+
+.form-group-LC label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.form-group-LC input, 
+.form-group-LC textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    font-family: inherit;
+    transition: var(--transition);
+}
+
+.form-group-LC input:focus, 
+.form-group-LC textarea:focus {
+    border-color: var(--primary-red);
+    outline: none;
+}
+
+.btn-primary-LC {
+    background: var(--primary-red);
+    color: white;
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-primary-LC:hover {
+    background: var(--dark-red);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* --- تنسيق الأسئلة الشائعة (Accordion) --- */
+.faq-wrapper-LC {
+    flex: 1;
+}
+
+.faq-wrapper-LC h3 {
+    margin-bottom: 25px;
+    color: var(--text-dark);
+}
+
+.accordion-LC {
+    background-color: var(--white);
+    color: var(--text-dark);
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: right;
+    outline: none;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: 0.4s;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.accordion-LC::after {
+    content: '\002B'; /* رمز + */
+    color: var(--primary-red);
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.accordion-LC.active::after {
+    content: "\2212"; /* رمز - */
+}
+
+.accordion-LC.active, .accordion-LC:hover {
+    background-color: #fff1f1;
+}
+
+.panel-LC {
+    padding: 0 18px;
+    background-color: transparent;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    margin-bottom: 15px;
+}
+
+.panel-LC p {
+    padding: 15px 0;
+    color: var(--text-gray);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* أنيميشن الظهور */
+.fade-in-LC {
+    animation: fadeIn 0.8s ease-in-out forwards;
+}
+
+@media (max-width: 992px) {
+    .contact-flex-LC {
+        flex-direction: column;
+    }
+    .contact-form-wrapper-LC, .faq-wrapper-LC {
+        width: 100%;
+    }
+}

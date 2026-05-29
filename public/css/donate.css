@@ -1,0 +1,375 @@
+/* =====================
+   DN | Page Wrapper
+===================== */
+.DN-page {
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #f8fafc 0%, #ffe4e6 100%);
+    min-height: 100vh;
+}
+
+/* =====================
+   DN | Buttons
+===================== */
+.DN-btn {
+    padding: 14px 28px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 700;
+    border: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: 'Tajawal', sans-serif;
+    letter-spacing: 0.5px;
+}
+
+.DN-btn-primary {
+    background: linear-gradient(135deg, #cc1b1b 0%, #8b0000 100%);
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(204, 27, 27, 0.25);
+}
+
+.DN-btn-primary:hover {
+    background: linear-gradient(135deg, #b01010 0%, #7a0000 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(204, 27, 27, 0.35);
+}
+
+.DN-btn-primary:active {
+    transform: translateY(-1px);
+}
+
+.DN-btn-secondary {
+    background: #ffffff;
+    color: var(--text-dark);
+    border: 2px solid #e2e8f0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.DN-btn-secondary:hover {
+    background: #f8fafc;
+    border-color: #cc1b1b;
+    color: #cc1b1b;
+    transform: translateY(-2px);
+}
+
+.DN-btn-full {
+    width: 100%;
+}
+
+.DN-check-result {
+    margin-top: 2rem;
+    font-weight: 700;
+    padding: 18px 22px;
+    border-radius: 14px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 1.05rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.DN-check-result.success {
+    background: linear-gradient(135deg, #d1fae5 0%, #e6f4ea 100%);
+    color: #065f46;
+    border: 2px solid #10b981;
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.15);
+}
+
+.DN-check-result.error {
+    background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+    color: #991b1b;
+    border: 2px solid #ef4444;
+    box-shadow: 0 8px 20px rgba(239, 68, 68, 0.15);
+}
+
+/* =====================
+   DN | Eligibility Check 
+===================== */
+#donationForm {
+    transition: all 0.5s ease;
+}
+
+/* ستايل للعناصر المعطلة */
+#donationForm input:disabled, 
+#donationForm select:disabled, 
+#donationForm button:disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+    border-color: #ddd;
+}
+.DN-check {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 3rem 3.5rem;
+    border-radius: 20px;
+    margin-bottom: 3.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08), 0 8px 20px rgba(204, 27, 27, 0.08);
+    position: relative;
+    overflow: hidden;
+    animation: DN-fade-up 0.6s ease-out;
+}
+
+/* شريط جانبي أحمر بتدرج */
+.DN-check::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(to bottom, #cc1b1b 0%, #ff6b6b 50%, #cc1b1b 100%);
+}
+
+/* العنوان */
+.DN-check h2 {
+    font-size: 1.8rem;
+    margin-bottom: 2.2rem;
+    color: #cc1b1b;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+/* عناصر الفحص */
+.DN-check label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 14px;
+    border: 2px solid #e2e8f0;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 600;
+    color: #1a202c;
+}
+
+.DN-check label:hover {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: #cc1b1b;
+    box-shadow: 0 4px 12px rgba(204, 27, 27, 0.08);
+    transform: translateX(-4px);
+}
+
+/* Checkbox */
+.DN-check input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #cc1b1b;
+    cursor: pointer;
+}
+
+/* زر التحقق */
+.DN-check .DN-btn {
+    margin-top: 1.5rem;
+}
+
+/* نتيجة الفحص */
+.DN-check-result {
+    margin-top: 1.2rem;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+/* حالات النتيجة */
+.DN-check-result.success {
+    color: #2e7d32;
+}
+
+.DN-check-result.error {
+    color: #c62828;
+}
+
+/* =====================
+   DN | Form Section
+===================== */
+.DN-title {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+    color: #1a202c;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.DN-form-box {
+    position: relative;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 3.5rem 3.5rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08), 0 10px 25px rgba(204, 27, 27, 0.1);
+    overflow: hidden;
+    animation: DN-fade-up 0.6s ease-out;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* خط ديكوري جانبي */
+.DN-form-box::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(to bottom, #cc1b1b 0%, #ff6b6b 50%, #cc1b1b 100%);
+}
+
+/* تأثير Hover */
+.DN-form-box:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12), 0 15px 35px rgba(204, 27, 27, 0.15);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.DN-form-group input,
+.DN-form-group select {
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 1rem;
+}
+
+.DN-form-group input::placeholder {
+    color: #a0aec0;
+}
+
+.DN-form-group input:hover,
+.DN-form-group select:hover {
+    border-color: #cc1b1b;
+    background: #ffffff;
+}
+
+.DN-form-group input:focus,
+.DN-form-group select:focus {
+    outline: none;
+    border-color: #cc1b1b;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(204, 27, 27, 0.1), inset 0 0 0 1px rgba(204, 27, 27, 0.05);
+}
+@keyframes DN-fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.DN-form-group {
+    margin-bottom: 2rem;
+}
+
+.DN-form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 700;
+    color: #1a202c;
+    font-size: 0.95rem;
+    letter-spacing: 0.3px;
+}
+
+.DN-form-group input,
+.DN-form-group select {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 2px solid #e2e8f0;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1rem;
+    color: #1a202c;
+}
+
+.DN-form-row {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.DN-form-row input,
+.DN-form-row select {
+    flex: 1;
+}
+
+@media (max-width: 600px) {
+    .DN-form-row {
+        flex-direction: column;
+        gap: 2rem;
+    }
+}
+
+/* =====================
+   DN | Responsive
+===================== */
+@media (max-width: 768px) {
+    .DN-page {
+        padding: 2rem 1rem;
+    }
+
+    .DN-title {
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+    }
+
+    .DN-form-box {
+        padding: 2.5rem 2rem;
+        border-radius: 16px;
+    }
+
+    .DN-check {
+        padding: 2rem 2rem;
+    }
+
+    .DN-form-row {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .DN-form-group input,
+    .DN-form-group select {
+        padding: 12px 14px;
+        font-size: 16px; /* منع تكبير الموبايل تلقائياً */
+    }
+
+    .DN-btn {
+        padding: 12px 24px;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .DN-page {
+        padding: 1.5rem 1rem;
+    }
+
+    .DN-title {
+        font-size: 1.5rem;
+    }
+
+    .DN-form-box {
+        padding: 2rem 1.5rem;
+    }
+
+    .DN-check h2 {
+        font-size: 1.3rem;
+    }
+
+    .DN-check label {
+        padding: 12px 14px;
+        gap: 10px;
+    }
+
+    .DN-btn-full {
+        padding: 14px 20px;
+    }
+}

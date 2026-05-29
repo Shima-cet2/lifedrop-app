@@ -1,0 +1,164 @@
+/* =====================================================
+   صفحة طلب طوارئ (Request Blood)
+   ===================================================== */
+   
+.container-RQ {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 5%;
+}
+
+.section-title-RQ {
+    text-align: center;
+    color: var(--text-dark);
+    margin-bottom: 30px;
+    font-size: 2.2rem;
+}
+
+.card-RQ {
+    background: var(--white);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: var(--shadow-md);
+    border-top: 5px solid var(--primary-red);
+}
+
+.form-group-RQ {
+    margin-bottom: 20px;
+}
+
+.form-group-RQ label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.form-group-RQ input, 
+.form-group-RQ select, 
+.form-group-RQ textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.form-group-RQ input:focus, 
+.form-group-RQ select:focus, 
+.form-group-RQ textarea:focus {
+    border-color: var(--primary-red);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(204, 27, 27, 0.1);
+}
+
+.blood-details-RQ {
+    background: #fff5f5;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+    border: 1px dashed var(--primary-red);
+}
+
+.urgency-options-RQ {
+    margin-top: 15px;
+    display: flex;
+    gap: 20px;
+}
+
+.urgent-RQ {
+    color: var(--primary-red);
+    font-weight: 700;
+}
+
+.btn-primary-RQ {
+    background: var(--primary-red);
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-primary-RQ:hover {
+    background: var(--dark-red);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* =====================================================
+   Modal (Success Popup)
+   ===================================================== */
+   
+.modal-success-RQ {
+    display: none; /* مخفي افتراضيا */
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}
+
+.modal-content-success-RQ {
+    background: var(--white);
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 450px;
+    width: 90%;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    transform: scale(0.8);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-success-RQ.show .modal-content-success-RQ {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.success-icon-RQ i {
+    font-size: 4.5rem;
+    color: #28a745;
+    margin-bottom: 20px;
+}
+
+.tracking-number-RQ {
+    background: #f8f9fa;
+    padding: 15px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: var(--primary-red);
+    border-radius: 10px;
+    margin: 20px 0;
+    border: 2px dashed #ddd;
+}
+
+.instruction-RQ {
+    color: var(--text-gray);
+    font-size: 0.9rem;
+    margin-bottom: 25px;
+}
+
+.btn-close-RQ {
+    background: var(--text-dark);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-close-RQ:hover {
+    background: black;
+}
