@@ -4,7 +4,8 @@
       "Bash(php --version)",
       "Bash(composer --version)",
       "PowerShell($php = Get-Command php -ErrorAction SilentlyContinue; if \\($php\\) { Write-Output \"PHP found: $\\($php.Source\\)\"; php --version } else { Write-Output \"PHP not in PATH. Searching common locations...\" })",
-      "PowerShell(netsh interface ipv4 show excludedportrange protocol=tcp)"
+      "PowerShell(netsh interface ipv4 show excludedportrange protocol=tcp)",
+      "Bash(git add *)"
     ]
   }
 }

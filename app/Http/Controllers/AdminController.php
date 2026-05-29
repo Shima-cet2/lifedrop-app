@@ -5,27 +5,67 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\BloodRequest;
 use App\Models\DonationCenter;
+use App\Models\Appointment;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
     public function index()
-{
-    // 1. تجهيز مصفوفة الإحصائيات مع التأكد من وجود كل المفاتيح (Keys)
-    $stats = [
-        'urgent_count' => \App\Models\BloodRequest::where('is_urgent', true)->count(), // حساب الطلبات العاجلة
-        'users_count' => \App\Models\User::count(),
-        'donors_count' => \App\Models\User::where('role', 'user')->count(),
-        'centers_count' => \App\Models\DonationCenter::count(),
-    ];
+    {
+        // 1. تجهيز مصفوفة الإحصائيات مع التأكد من وجود كل المفاتيح (Keys)
+        $stats = [
+            'urgent_count' => \App\Models\BloodRequest::where('is_urgent', true)->count(), // حساب الطلبات العاجلة
+            'users_count' => \App\Models\User::count(),
+            'donors_count' => \App\Models\User::where('role', 'user')->count(),
+            'centers_count' => \App\Models\DonationCenter::count(),
+        ];
 
-    // 2. جلب البيانات للجداول
-    $bloodRequests = \App\Models\BloodRequest::latest()->take(5)->get();
-    $donationCenters = \App\Models\DonationCenter::all();
+        // 2. جلب البيانات للجداول
+        $bloodRequests = \App\Models\BloodRequest::latest()->take(5)->get();
+        $donationCenters = \App\Models\DonationCenter::all();
 
-    // 3. إرسال البيانات لملف admin.blade.php
-    return view('admin.admin', compact('stats', 'bloodRequests', 'donationCenters'));
-}
+        // 3. إرسال البيانات لملف admin.blade.php
+        return view('admin.admin', compact('stats', 'bloodRequests', 'donationCenters'));
+    }
+
+    // عرض المواعيد مجمعة حسب مركز التبرع
+    public function appointments()
+    {
+        $appointments = Appointment::with(['user', 'donationCenter'])->latest()->get();
+        $appointmentsByCenter = $appointments->groupBy('donation_center_id');
+        return view('admin.appointments', compact('appointments', 'appointmentsByCenter'));
+    }
+
+    // تحديث حالة موعد التبرع
+    public function updateAppointmentStatus(Request $request, $id)
+    {
+        $appointment = Appointment::findOrFail($id);
+        $status = $request->input('status');
+
+        if (!in_array($status, ['pending', 'completed', 'cancelled'])) {
+            return back()->with('error', 'حالة غير صحيحة.');
+        }
+
+        $appointment->status = $status;
+        $appointment->save();
+
+        $statusLabel = match($status) {
+            'pending' => 'قيد الانتظار',
+            'completed' => 'تم التبرع',
+            'cancelled' => 'ملغي',
+        };
+
+        return back()->with('success', "تم تحديث حالة الموعد إلى: {$statusLabel}");
+    }
+
+    // حذف موعد التبرع
+    public function destroyAppointment($id)
+    {
+        $appointment = Appointment::findOrFail($id);
+        $appointment->delete();
+
+        return back()->with('success', 'تم حذف الموعد بنجاح.');
+    }
 
     // عرض جميع المستخدمين في لوحة التحكم
     public function users()

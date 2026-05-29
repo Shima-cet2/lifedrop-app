@@ -66,10 +66,15 @@ Route::middleware(['auth'])->group(function () {
     |--------------------------------------------------------------------------
     */
     Route::middleware(['admin'])->prefix('admin')->group(function () {
-        
+
         // لوحة تحكم الأدمن الرئيسية (الإحصائيات)
         Route::get('/', [AdminController::class, 'index'])->name('admin.admin');
-        
+
+        // إدارة المواعيد
+        Route::get('/appointments', [AdminController::class, 'appointments'])->name('admin.appointments');
+        Route::put('/appointments/{id}/status', [AdminController::class, 'updateAppointmentStatus'])->name('admin.appointments.status');
+        Route::delete('/appointments/{id}', [AdminController::class, 'destroyAppointment'])->name('admin.appointments.destroy');
+
         // إدارة المستخدمين
         Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
         Route::put('/users/{id}/role', [AdminController::class, 'toggleRole'])->name('admin.users.role');
@@ -82,6 +87,7 @@ Route::middleware(['auth'])->group(function () {
 
         // إدارة مراكز التبرع (CRUD)
         Route::prefix('centers')->group(function () {
+            Route::get('/', [DonationCenterController::class, 'index'])->name('centers.index'); // عرض
             Route::post('/store', [DonationCenterController::class, 'store'])->name('centers.store');   // إضافة
             Route::put('/update/{id}', [DonationCenterController::class, 'update'])->name('centers.update'); // تعديل
             Route::delete('/destroy/{id}', [DonationCenterController::class, 'destroy'])->name('centers.destroy'); // حذف

@@ -27,6 +27,7 @@
         <div class="logo"><i class="fas fa-tint"></i> <span>LifeDrop</span></div>
         <nav>
             <a href="/admin" title="الرئيسية والإحصائيات"><i class="fas fa-chart-line"></i> لوحة التحكم</a>
+            <a href="/admin/appointments" title="مواعيد التبرع"><i class="fas fa-calendar"></i> مواعيد التبرع</a>
             <a href="/admin/users" title="عرض وإدارة كافة المستخدمين"><i class="fas fa-users"></i> إدارة المستخدمين</a>
             <a href="/admin/requests" class="active" title="طلبات التبرع بالدم"><i class="fas fa-droplet"></i> طلبات الدم</a>
             <a href="/admin/centers" title="مراكز ومستشفيات التبرع"><i class="fas fa-hospital"></i> مراكز التبرع</a>

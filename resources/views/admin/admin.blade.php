@@ -38,6 +38,10 @@
                 <i class="fas fa-chart-pie"></i>
                 لوحة التحكم
             </a>
+            <a href="/admin/appointments" title="إدارة مواعيد التبرع">
+                <i class="fas fa-calendar"></i>
+                المواعيد
+            </a>
             <a href="/admin/users" title="إدارة حسابات المستخدمين">
                 <i class="fas fa-users"></i>
                 المستخدمون
