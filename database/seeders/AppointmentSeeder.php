@@ -14,30 +14,42 @@ class AppointmentSeeder extends Seeder
      */
     public function run(): void
     {
-        // جلب المستخدمين والمراكز
-        $users = User::where('role', 'user')->get();
-        $centers = DonationCenter::all();
+        // جلب المتبرعين والمراكز مرتبين لربط واقعي
+        $users   = User::where('role', 'user')->orderBy('id')->get();
+        $centers = DonationCenter::orderBy('id')->get();
 
         if ($users->isEmpty() || $centers->isEmpty()) {
             return;
         }
 
-        // إنشاء مواعيد تبرع تجريبية
-        $statuses = ['pending', 'completed', 'cancelled'];
+        // 10 مواعيد واقعية — المكتمل في الماضي، قيد الانتظار في المستقبل، الملغي في الماضي
+        // [index_المستخدم, index_المركز, الحالة, عدد الأيام (- ماضي / + مستقبل)]
+        $appointments = [
+            [0, 0, 'completed', -45],
+            [1, 2, 'completed', -30],
+            [2, 0, 'pending',    +3],
+            [3, 3, 'completed', -20],
+            [4, 4, 'pending',    +5],
+            [5, 5, 'cancelled', -15],
+            [6, 6, 'pending',    +7],
+            [7, 7, 'completed', -60],
+            [8, 8, 'pending',   +10],
+            [0, 1, 'cancelled',  -8],
+        ];
 
-        $centerIndex = 0;
-        foreach ($users as $user) {
-            for ($i = 0; $i < 3; $i++) {
-                $center = $centers[$centerIndex % $centers->count()];
-                $centerIndex++;
+        foreach ($appointments as $a) {
+            $user   = $users[$a[0] % $users->count()];
+            $center = $centers[$a[1] % $centers->count()];
 
-                Appointment::create([
-                    'user_id' => $user->id,
-                    'donation_center_id' => $center->id,
-                    'appointment_date' => now()->addDays(rand(1, 30)),
-                    'status' => $statuses[array_rand($statuses)],
-                ]);
-            }
+            // ساعة عمل واقعية بين 9 صباحاً و 3 ظهراً
+            $date = now()->addDays($a[3])->setTime(rand(9, 15), [0, 30][rand(0, 1)]);
+
+            Appointment::create([
+                'user_id'            => $user->id,
+                'donation_center_id' => $center->id,
+                'appointment_date'   => $date,
+                'status'             => $a[2],
+            ]);
         }
     }
 }

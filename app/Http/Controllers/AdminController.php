@@ -12,20 +12,74 @@ class AdminController extends Controller
 {
     public function index()
     {
-        // 1. تجهيز مصفوفة الإحصائيات مع التأكد من وجود كل المفاتيح (Keys)
+        // ===== 1. بطاقات الإحصائيات الرئيسية (KPIs) =====
         $stats = [
-            'urgent_count' => \App\Models\BloodRequest::where('is_urgent', true)->count(), // حساب الطلبات العاجلة
-            'users_count' => \App\Models\User::count(),
-            'donors_count' => \App\Models\User::where('role', 'user')->count(),
-            'centers_count' => \App\Models\DonationCenter::count(),
+            'urgent_count'    => BloodRequest::where('is_urgent', true)->where('status', 'pending')->count(),
+            'users_count'     => User::count(),
+            'donors_count'    => User::where('role', 'user')->count(),
+            'centers_count'   => DonationCenter::count(),
+            'requests_count'  => BloodRequest::count(),
+            'pending_requests'=> BloodRequest::where('status', 'pending')->count(),
+            'appointments_count' => Appointment::count(),
+            'pending_appointments' => Appointment::where('status', 'pending')->count(),
         ];
 
-        // 2. جلب البيانات للجداول
-        $bloodRequests = \App\Models\BloodRequest::latest()->take(5)->get();
-        $donationCenters = \App\Models\DonationCenter::all();
+        // ===== 2. توزيع فصائل الدم المطلوبة (لرسم Doughnut) =====
+        $bloodTypeData = BloodRequest::selectRaw('required_type, COUNT(*) as total')
+            ->groupBy('required_type')
+            ->pluck('total', 'required_type')
+            ->toArray();
 
-        // 3. إرسال البيانات لملف admin.blade.php
-        return view('admin.admin', compact('stats', 'bloodRequests', 'donationCenters'));
+        // ===== 3. حالة طلبات الدم (لرسم دائري) =====
+        $requestStatusData = [
+            'pending'   => BloodRequest::where('status', 'pending')->count(),
+            'provided'  => BloodRequest::where('status', 'provided')->count(),
+            'cancelled' => BloodRequest::where('status', 'cancelled')->count(),
+        ];
+
+        // ===== 4. حالة المواعيد (لرسم دائري) =====
+        $appointmentStatusData = [
+            'pending'   => Appointment::where('status', 'pending')->count(),
+            'completed' => Appointment::where('status', 'completed')->count(),
+            'cancelled' => Appointment::where('status', 'cancelled')->count(),
+        ];
+
+        // ===== 5. أكثر المدن طلباً للدم (Top 5) =====
+        $topCities = BloodRequest::selectRaw('city, COUNT(*) as total')
+            ->groupBy('city')
+            ->orderByDesc('total')
+            ->take(5)
+            ->pluck('total', 'city')
+            ->toArray();
+
+        // ===== 6. الطلبات خلال آخر 6 أشهر (لرسم خطي) =====
+        $monthlyTrend = [];
+        for ($i = 5; $i >= 0; $i--) {
+            $month = now()->subMonths($i);
+            $monthlyTrend[$month->format('M Y')] = BloodRequest::whereYear('created_at', $month->year)
+                ->whereMonth('created_at', $month->month)
+                ->count();
+        }
+
+        // ===== 7. جداول النشاط الأخير =====
+        $bloodRequests      = BloodRequest::with('user')->latest()->take(5)->get();
+        $latestAppointments = Appointment::with(['user', 'donationCenter'])->latest()->take(5)->get();
+        $latestUsers        = User::latest()->take(5)->get();
+        $urgentRequests     = BloodRequest::with('user')->where('is_urgent', true)
+            ->where('status', 'pending')->latest()->take(5)->get();
+
+        return view('admin.admin', compact(
+            'stats',
+            'bloodTypeData',
+            'requestStatusData',
+            'appointmentStatusData',
+            'topCities',
+            'monthlyTrend',
+            'bloodRequests',
+            'latestAppointments',
+            'latestUsers',
+            'urgentRequests'
+        ));
     }
 
     // عرض المواعيد مجمعة حسب مركز التبرع

@@ -15,31 +15,30 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // حساب مدير (Admin) لتجربة لوحة التحكم ونظام الصلاحيات
+        // ===== 10 مستخدمين واقعيين (1 مدير + 9 متبرعين) =====
         // كلمة المرور تُشفّر تلقائياً عبر cast الـ 'hashed' في موديل User
-        User::factory()->create([
-            'name'       => 'مدير النظام',
-            'email'      => 'admin@lifedrop.com',
-            'password'   => 'Admin@1234',
-            'role'       => 'admin',
-            'phone'      => '0910000000',
-            'city'       => 'طرابلس',
-            'blood_type' => 'O+',
-        ]);
+        $users = [
+            ['name' => 'مدير النظام',     'email' => 'admin@lifedrop.com', 'role' => 'admin', 'phone' => '0910000000', 'city' => 'طرابلس', 'blood_type' => 'O+',  'last_donation_date' => null,           'password' => 'Admin@1234'],
+            ['name' => 'أحمد المبروك',     'email' => 'ahmed@lifedrop.com', 'role' => 'user',  'phone' => '0911234567', 'city' => 'بنغازي', 'blood_type' => 'A+',  'last_donation_date' => '2026-03-15',   'password' => 'User@1234'],
+            ['name' => 'فاطمة الزروق',     'email' => 'fatima@lifedrop.com','role' => 'user',  'phone' => '0921234567', 'city' => 'مصراتة', 'blood_type' => 'B+',  'last_donation_date' => '2026-05-01',   'password' => 'User@1234'],
+            ['name' => 'خالد الفيتوري',    'email' => 'khaled@lifedrop.com','role' => 'user',  'phone' => '0913456789', 'city' => 'طرابلس', 'blood_type' => 'O-',  'last_donation_date' => null,           'password' => 'User@1234'],
+            ['name' => 'عائشة بن سعد',     'email' => 'aisha@lifedrop.com', 'role' => 'user',  'phone' => '0924567890', 'city' => 'الزاوية','blood_type' => 'AB+', 'last_donation_date' => '2026-01-20',   'password' => 'User@1234'],
+            ['name' => 'محمد الورفلي',     'email' => 'mohamed@lifedrop.com','role'=> 'user',  'phone' => '0915678901', 'city' => 'سبها',   'blood_type' => 'A-',  'last_donation_date' => '2026-04-10',   'password' => 'User@1234'],
+            ['name' => 'مريم القمودي',     'email' => 'mariam@lifedrop.com','role' => 'user',  'phone' => '0926789012', 'city' => 'درنة',   'blood_type' => 'B-',  'last_donation_date' => null,           'password' => 'User@1234'],
+            ['name' => 'علي الشريف',       'email' => 'ali@lifedrop.com',   'role' => 'user',  'phone' => '0917890123', 'city' => 'الخمس',  'blood_type' => 'O+',  'last_donation_date' => '2026-02-28',   'password' => 'User@1234'],
+            ['name' => 'زينب المقريف',     'email' => 'zainab@lifedrop.com','role' => 'user',  'phone' => '0928901234', 'city' => 'طبرق',   'blood_type' => 'AB-', 'last_donation_date' => '2026-05-12',   'password' => 'User@1234'],
+            ['name' => 'يوسف بالحاج',      'email' => 'youssef@lifedrop.com','role'=> 'user',  'phone' => '0919012345', 'city' => 'سرت',    'blood_type' => 'A+',  'last_donation_date' => null,           'password' => 'User@1234'],
+        ];
 
-        // حساب متبرع عادي (User) للتجربة
-        User::factory()->create([
-            'name'       => 'متبرع تجريبي',
-            'email'      => 'user@lifedrop.com',
-            'password'   => 'User@1234',
-            'role'       => 'user',
-            'phone'      => '0920000000',
-            'city'       => 'بنغازي',
-            'blood_type' => 'A+',
-        ]);
+        foreach ($users as $u) {
+            User::create($u);
+        }
 
+        // ===== تشغيل بقية الـ Seeders بالترتيب المنطقي =====
         $this->call([
-            DonationCenterSeeder::class,
+            DonationCenterSeeder::class, // 10 مراكز
+            BloodRequestSeeder::class,   // 10 طلبات مرتبطة بالمستخدمين
+            AppointmentSeeder::class,    // 10 مواعيد مرتبطة بالمستخدمين والمراكز
         ]);
     }
 }

@@ -12,6 +12,7 @@ class DonationCenter extends Model
         'city',
         'address',
         'phone',
+        'available_blood_types',
     ];
 
     public function appointments()

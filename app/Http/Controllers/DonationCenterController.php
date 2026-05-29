@@ -24,7 +24,7 @@ class DonationCenterController extends Controller
     {
         // جلب البيانات مرتبة من الأحدث إلى الأقدم
         $donationCenters = DonationCenter::latest()->get();
-        return view('admin.admin', compact('donationCenters'));
+        return view('admin.centers', compact('donationCenters'));
     }
 
     /**
