@@ -1,58 +1,136 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🩸 LifeDrop — منصة التبرع بالدم
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="https://img.shields.io/badge/Laravel-13.x-red?style=flat-square&logo=laravel" alt="Laravel">
+  <img src="https://img.shields.io/badge/PHP-8.4-blue?style=flat-square&logo=php" alt="PHP">
+  <img src="https://img.shields.io/badge/MySQL-8.0-orange?style=flat-square&logo=mysql" alt="MySQL">
+  <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="MIT">
 </p>
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 📋 نبذة عن المشروع
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+**LifeDrop** هو تطبيق ويب متكامل لإدارة منظومة التبرع بالدم، مبني بإطار عمل **Laravel**. يهدف إلى ربط المتبرعين بالدم مع مراكز التبرع والمحتاجين، مع توفير لوحة تحكم متكاملة للمشرفين.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### ✨ الميزات الرئيسية
 
-## Learning Laravel
+| الميزة | الوصف |
+|--------|-------|
+| 🔐 نظام المصادقة | تسجيل دخول / إنشاء حساب بفصل الصلاحيات (Admin / User) |
+| 📋 طلبات الدم | تقديم طلبات الدم مع رقم تتبع فريد وحالة معالجة |
+| 📅 حجز المواعيد | حجز موعد تبرع في أقرب مركز مع إشعار إلكتروني |
+| 🏥 مراكز التبرع | عرض مراكز التبرع على الخريطة مع الفصائل المتاحة |
+| 📊 لوحة التحكم | داش بورد تفاعلية بالرسوم البيانية وإحصائيات حية |
+| 📧 الإشعارات | إشعارات بريد إلكتروني عند تأكيد الموعد (Mailtrap) |
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🛠️ متطلبات التشغيل
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+- **PHP** >= 8.2
+- **Composer** >= 2.x
+- **MySQL** >= 8.0
+- **Node.js** >= 18.x (لبناء الأصول)
 
-## Agentic Development
+---
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## 🚀 خطوات التثبيت
 
+### 1. استخراج الملفات
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+unzip lifedrop-submission.zip -d lifedrop
+cd lifedrop
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### 2. تثبيت التبعيات
+```bash
+composer install
+npm install && npm run build
+```
 
-## Contributing
+### 3. إعداد البيئة
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 4. ضبط قاعدة البيانات في ملف `.env`
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=lifedrop
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-## Code of Conduct
+### 5. إنشاء قاعدة البيانات وتعبئتها
+```bash
+php artisan migrate:fresh --seed
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 6. تشغيل التطبيق
+```bash
+php artisan serve
+```
+ثم افتح المتصفح على: **http://localhost:8000**
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## 🔑 بيانات الدخول التجريبية
 
-## License
+| الدور | البريد الإلكتروني | كلمة المرور |
+|-------|-------------------|-------------|
+| 👤 مشرف (Admin) | admin@lifedrop.com | Admin@1234 |
+| 💉 متبرع (User) | ahmed@lifedrop.com | User@1234 |
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## 🗂️ هيكل المشروع
+
+```
+lifedrop/
+├── app/
+│   ├── Http/Controllers/     # كنترولرز التطبيق
+│   └── Models/               # موديلز Eloquent
+├── database/
+│   ├── migrations/           # هيكل قاعدة البيانات
+│   └── seeders/              # بيانات تجريبية واقعية
+├── public/
+│   ├── css/                  # ملفات التنسيق
+│   └── js/                   # ملفات الجافاسكريبت
+├── resources/views/
+│   ├── admin/                # واجهات لوحة التحكم
+│   └── ...                   # واجهات المستخدم
+└── routes/web.php            # مسارات التطبيق
+```
+
+---
+
+## 📊 قاعدة البيانات
+
+| الجدول | المحتوى |
+|--------|---------|
+| `users` | المستخدمون (متبرعون + مشرفون) |
+| `donation_centers` | مراكز التبرع بالدم |
+| `blood_requests` | طلبات الدم مع رقم التتبع |
+| `appointments` | مواعيد التبرع |
+| `notifications` | إشعارات النظام |
+
+---
+
+## 👨‍💻 تقنيات المستخدمة
+
+- **Backend:** Laravel 13, PHP 8.4, Eloquent ORM
+- **Frontend:** Blade Templates, Tailwind-inspired CSS, Font Awesome 6
+- **Charts:** Chart.js 4.4
+- **Database:** MySQL / MariaDB
+- **Email:** Mailtrap (SMTP)
+- **Fonts:** Tajawal (Arabic RTL)
+
+---
+
+## 🔗 الـ Repository
+
+**GitHub:** [github.com/Shima-cet2/lifedrop-app](https://github.com/Shima-cet2/lifedrop-app)
